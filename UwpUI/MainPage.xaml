@@ -1,0 +1,64 @@
+﻿<Page
+    x:Class="UwpUI.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UwpUI"
+    xmlns:models="using:LibraryUWP.Models"    
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid  Margin="20" >
+        <Grid.Resources>
+            <models:Departments x:Key="department"/>
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.5*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="tbFirstName"    TabIndex="0" Grid.Row="0" Grid.Column="0" Margin="10" Padding="15" PlaceholderText="Enter FirstName ___"/>
+            <TextBox x:Name="tbLastName"     TabIndex="1" Grid.Row="0" Grid.Column="1" Margin="10"  Padding="15" PlaceholderText="Enter LastName ___"/>
+            <ComboBox x:Name="cmbDepartment" TabIndex="2" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{StaticResource department}" Margin="10" HorizontalAlignment="Stretch" PlaceholderText="Choose Department"  />
+
+            <Button x:Name="btnAddEmployee"     TabIndex="3"  Grid.Row="0" Grid.Column="2"  Grid.RowSpan="2" Click="btnAddEmployee_Click"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="ADD Employee"/>
+
+        </Grid>
+        
+        
+        <ListView x:Name="lvEmployees" ItemsSource="{x:Bind employees}" Grid.Row="1" Margin="26,25,14,15" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions >
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Margin="0,10,40,10">
+                            <TextBlock Text="{Binding FullName}" FontSize="24"/>
+                            <TextBlock Text="{Binding Department}" FontSize="18" Foreground="Gray" />
+                        </StackPanel>
+
+                        <Button x:Name="btnDeleteEmployee" Grid.Column="1" Background="Transparent" BorderBrush="Transparent" Click="btnDeleteEmployee_Click">
+                            <SymbolIcon Symbol="Delete"/>
+                        </Button>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>
